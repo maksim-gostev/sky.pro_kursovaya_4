@@ -35,7 +35,7 @@ def authorization_put(req_json):
         abort(400)
 
     try:
-        data = jwt.decode(jwt=refresh_token, key=SECRET, algorithms=[ALGO])
+        data = jwt
     except Exception:
         abort(400)
 
