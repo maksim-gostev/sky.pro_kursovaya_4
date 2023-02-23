@@ -1,5 +1,8 @@
 import hashlib
-from constants import PWD_HASH_SALT, PWD_HASH_ITERATIONS
+
+import jwt
+
+from constants import PWD_HASH_SALT, PWD_HASH_ITERATIONS, SECRET, ALGO
 from dao.user_dao import UserDAO
 
 
@@ -17,12 +20,7 @@ class UserService:
         user_d['password'] = self.get_hash(user_d['password'])
         return self.dao.create(user_d)
 
-    def update(self, user_d):
-        self.dao.update(user_d)
-        return self.dao
 
-    def delete(self, uid):
-        self.dao.delete(uid)
 
     def get_hash(self, password):
         return hashlib.pbkdf2_hmac(
@@ -34,3 +32,31 @@ class UserService:
 
     def get_by_username(self, username):
         return self.dao.get_by_username(username)
+
+    def patch(self, token, data):
+        user = self.get_user_by_token(token)
+
+        if 'name' in data:
+            user.name = data.get('name')
+        if 'surname' in data:
+            user.surname = data.get('surname')
+        if 'favorite_genre' in data:
+            user.favorite_genre = data.get('favorite_genre')
+
+        return self.dao.update(user)
+
+    def get_user_by_token(self, data):
+        token = data.split("Bearer ")[-1]
+        try:
+            user = jwt.decode(token, SECRET, algorithms=[ALGO])
+            uid = user.get('id')
+        except Exception as e:
+            print("JWT Decode Exception", e)
+
+        return self.get_one(uid)
+
+    def update_password(self, token, password):
+        if password["password_1"] == password["password_2"]:
+            user = self.get_user_by_token(token)
+            user.password = password.get("password_1")
+            return self.dao.update(user)

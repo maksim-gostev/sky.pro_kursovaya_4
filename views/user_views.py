@@ -3,6 +3,7 @@ from flask import request
 
 from dao.model.user import UserSchema
 from implemented import user_service
+from service.decorators import auth_required
 
 user_ns = Namespace('users')
 
@@ -12,32 +13,25 @@ user_schema = UserSchema()
 
 @user_ns.route('')
 class UsersView(Resource):
+    @auth_required
     def get(self):
-        users = user_service.get_all()
-        return users_schema.dump(users), 200
-
-    def post(self):
-        req_json = request.json
-
-        if not req_json:
-            return "вы не ввели данные", 404
-
-        user = user_service.create(req_json)
-        return user_schema.dump(user), 201
-
-
-@user_ns.route('/<int:uid>')
-class UserView(Resource):
-    def get(self, uid):
-        user = user_service.get_one(uid)
+        auth_data = request.headers['Authorization']
+        user = user_service.get_user_by_token(auth_data)
         return user_schema.dump(user), 200
 
-    def put(self, uid):
+    @auth_required
+    def patch(self):
+        auth_data = request.headers['Authorization']
         req_json = request.json
-        if not req_json:
-            return "вы не ввели данные", 404
+        user = user_service.patch(auth_data, req_json)
+        return user_schema.dump(user)
 
-        req_json['id'] = uid
 
-        user = user_service.update(req_json)
-        return user_schema.dump(user), 204
+@user_ns.route('/password/')
+class PasswordView(Resource):
+    @auth_required
+    def put(self):
+        auth_data = request.headers['Authorization']
+        passwords = request.json
+        user = user_service.update_password(auth_data, passwords)
+        return user_schema.dump(user)

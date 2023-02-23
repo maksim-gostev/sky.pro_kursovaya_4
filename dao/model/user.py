@@ -21,3 +21,12 @@ class UserSchema(Schema):
 	name = fields.Str()
 	surname = fields.Str()
 	favorite_genre = fields.Int()
+
+
+# {
+# 	"email": "email_test1",
+# 	"password": "password_test1",
+# 	"name": "name_test1",
+# 	"surname": "surname_test1",
+# 	"favorite_genre": "1"
+# }
