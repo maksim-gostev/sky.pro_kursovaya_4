@@ -7,7 +7,7 @@ from setup_db import db
 class User(Base):
 	__tablename__ = 'user'
 
-	email = db.Column(db.String, nullable=False)
+	email = db.Column(db.String, nullable=False, unique=True)
 	password = db.Column(db.String, nullable=False)
 	name = db.Column(db.String)
 	surname = db.Column(db.String)

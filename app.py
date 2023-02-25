@@ -8,6 +8,7 @@ from views.genres_views import genre_ns
 from views.movies_views import movie_ns
 from views.user_views import user_ns
 from views.auth_view import auth_ns
+from views.favourite_movie import f_movie_ns
 
 
 def create_app(config_object: Config) -> Flask:
@@ -29,6 +30,7 @@ def register_extensions(app):
     api.add_namespace(movie_ns)
     api.add_namespace(user_ns)
     api.add_namespace(auth_ns)
+    api.add_namespace(f_movie_ns)
 
 
 app = create_app(Config())

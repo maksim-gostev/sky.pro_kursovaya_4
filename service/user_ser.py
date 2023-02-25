@@ -58,5 +58,5 @@ class UserService:
     def update_password(self, token, password):
         if password["password_1"] == password["password_2"]:
             user = self.get_user_by_token(token)
-            user.password = password.get("password_1")
+            user.password = self.get_hash(password["password_1"])
             return self.dao.update(user)
