@@ -3,7 +3,7 @@ from flask_restx import Resource, Namespace
 
 from dao.model.movie import MovieSchema
 from implemented import movie_service
-from service.decorators import auth_required
+
 
 movie_ns = Namespace('movies')
 
@@ -29,7 +29,7 @@ class MoviesView(Resource):
 @movie_ns.route('/<int:mid>')
 class MovieView(Resource):
     def get(self, mid):
-        movie = movie_service.get_one(mid)
+        movie = movie_service.get_by_id(mid)
         if not movie:
             return "такого фильма нет", 404
         return movie_schema.dump(movie), 200

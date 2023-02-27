@@ -21,8 +21,6 @@ def create_app(config_object: Config) -> Flask:
 def register_extensions(app):
     """Инициализация базы данных и неймспейсов"""
     db.init_app(app)
-    with app.app_context():
-        db.create_all()
     api = Api(app)
     # добовление "НС"
     api.add_namespace(director_ns)

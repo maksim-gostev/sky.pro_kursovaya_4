@@ -12,12 +12,12 @@ class AuthService:
         self.user_service = user_service
 
     def authorization(self, data) -> dict:
-        username = data.get('username', None)
+        email = data.get('email', None)
         password = data.get('password', None)
 
-        if None in [username, password]:
+        if None in [email, password]:
             abort(400)
-        user = self.user_service.get_by_username(username)
+        user = self.user_service.get_by_email(email)
         if user is None:
             return {"error": "Нет такого юзера"}, 401
 
@@ -38,13 +38,13 @@ class AuthService:
             abort(400)
 
         try:
-            data = jwt
+            data = jwt.decode(jwt=refresh_token, key=SECRET, algorithms=[ALGO])
         except Exception:
             abort(400)
 
-        username = data.get('username')
+        email = data.get('email')
 
-        user = self.user_service.get_by_username(username)
+        user = self.user_service.get_by_email(email)
 
         tokens = self.get_tokens(user)
         return tokens

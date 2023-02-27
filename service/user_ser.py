@@ -13,8 +13,6 @@ class UserService:
     def get_one(self, uid):
         return self.dao.get_one(uid)
 
-    def get_all(self):
-        return self.dao.get_all()
 
     def create(self, user_d):
         user_d['password'] = self.get_hash(user_d['password'])
@@ -30,8 +28,8 @@ class UserService:
             PWD_HASH_ITERATIONS
         ).decode("utf-8", "ignore")
 
-    def get_by_username(self, username):
-        return self.dao.get_by_username(username)
+    def get_by_email(self, email):
+        return self.dao.get_by_email(email)
 
     def patch(self, token, data):
         user = self.get_user_by_token(token)

@@ -112,28 +112,8 @@ def user_dao():
         favorite_genre=1
     )
 
-    test_user2 = User(
-        id=2,
-        email='email2',
-        password='password2',
-        name='name2',
-        surname='surname2',
-        favorite_genre=2
-    )
-
-    test_user3 = User(
-        id=3,
-        email='email3',
-        password='password3',
-        name='name3',
-        surname='surname3',
-        favorite_genre=3
-    )
-
-    test_users = {1: test_user1, 2: test_user2, 3: test_user3}
-
-    user_dao.get_all = MagicMock(return_value=test_users.values())
     user_dao.get_one = MagicMock(return_value=test_user1)
+    user_dao.get_by_email = MagicMock(return_value=test_user1)
     user_dao.create = MagicMock(return_value=User(
             id=4,
             email='email4',
@@ -142,8 +122,6 @@ def user_dao():
             surname='surname4',
             favorite_genre=4
         ))
-    user_dao.update = MagicMock()
-    user_dao.delete = MagicMock()
 
     return user_dao
 

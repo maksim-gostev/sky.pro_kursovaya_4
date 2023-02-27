@@ -5,7 +5,7 @@ class DirectorService:
     def __init__(self, dao: DirectorDAO):
         self.dao = dao
 
-    def get_one(self, bid):
+    def get_by_id(self, bid):
         return self.dao.get_by_id(bid)
 
     def get_all(self):

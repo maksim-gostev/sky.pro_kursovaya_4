@@ -19,5 +19,5 @@ class FavouriteMovieDAO:
 
     def delete(self, mid, uid):
         f_movie = self.get_by_user_movie_id(mid, uid)
-        self.session.delete(f_movie, )
+        self.session.delete(f_movie)
         self.session.commit()

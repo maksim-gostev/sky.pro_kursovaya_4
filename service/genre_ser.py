@@ -5,7 +5,7 @@ class GenreService:
     def __init__(self, dao: GenreDAO):
         self.dao = dao
 
-    def get_one(self, bid):
+    def get_dy_id(self, bid):
         return self.dao.get_by_id(bid)
 
     def get_all(self):
