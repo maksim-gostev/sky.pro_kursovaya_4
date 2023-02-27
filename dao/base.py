@@ -7,6 +7,7 @@ T = TypeVar('T', bound=Base)
 
 
 class BaseDAO(Generic[T]):
+
     __model__ = Base
 
     def __init__(self, session: scoped_session) -> None:
