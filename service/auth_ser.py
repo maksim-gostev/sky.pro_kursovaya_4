@@ -54,8 +54,8 @@ class AuthService:
 
     def get_tokens(self, user):
         data = {
-            "username": user.username,
-            "role": user.role
+            "email": user.email,
+            "id": user.id
         }
 
         min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
