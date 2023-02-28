@@ -12,10 +12,7 @@ class UserDAO(BaseDAO[User]):
         return user
 
 
-    def update(self, user_d):
-        user = self.get_by_id(user_d.get("id"))
-        user.email = user_d.get("email")
-
+    def update(self, user):
         self.session.add(user)
         self.session.commit()
 
