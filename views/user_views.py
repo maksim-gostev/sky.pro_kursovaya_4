@@ -5,7 +5,7 @@ from dao.model.user import UserSchema
 from implemented import user_service
 from service.decorators import auth_required
 
-user_ns = Namespace('users')
+user_ns = Namespace('user')
 
 user_schema = UserSchema()
 

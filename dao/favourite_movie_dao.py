@@ -5,7 +5,7 @@ class FavouriteMovieDAO:
         self.session = session
 
     def get_by_user_movie_id(self, mid, uid):
-        f_movie = self.session.query(FavouriteMovie).filter(FavouriteMovie.user_id == uid,
+        f_movie = self.session.query(FavouriteMovie).filter(FavouriteMovie.user_id == uid and
                                                             FavouriteMovie == mid).first()
         return f_movie
 
