@@ -11,7 +11,7 @@ class UserService:
         self.dao = dao
 
     def get_one(self, uid):
-        return self.dao.get_one(uid)
+        return self.dao.get_by_id(uid)
 
 
     def create(self, user_d):

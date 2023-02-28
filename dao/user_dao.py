@@ -1,13 +1,9 @@
 from dao.model.user import User
+from dao.base import BaseDAO
 
 
-class UserDAO:
-    def __init__(self, session):
-        self.session = session
-
-    def get_one(self, uid):
-        return self.session.get(uid)
-
+class UserDAO(BaseDAO[User]):
+    __model__ = User
 
     def create(self, user_d):
         user = User(**user_d)
@@ -17,7 +13,7 @@ class UserDAO:
 
 
     def update(self, user_d):
-        user = self.get_one(user_d.get("id"))
+        user = self.get_by_id(user_d.get("id"))
         user.email = user_d.get("email")
 
         self.session.add(user)
