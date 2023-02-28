@@ -44,6 +44,7 @@ class UserService:
         return self.dao.update(user)
 
     def get_user_by_token(self, data):
+        global uid
         token = data.split("Bearer ")[-1]
         try:
             user = jwt.decode(token, SECRET, algorithms=[ALGO])

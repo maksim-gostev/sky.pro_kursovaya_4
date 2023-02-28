@@ -5,8 +5,8 @@ class MovieService:
     def __init__(self, dao: MovieDAO):
         self.dao = dao
 
-    def get_dy_id(self, bid):
-        return self.dao.get_by_id(bid)
+    def get_dy_id(self, mid):
+        return self.dao.get_by_id(mid)
 
     def get_all(self, filters: dict):
 

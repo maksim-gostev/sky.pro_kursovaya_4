@@ -29,7 +29,7 @@ class MoviesView(Resource):
 @movie_ns.route('/<int:mid>')
 class MovieView(Resource):
     def get(self, mid):
-        movie = movie_service.get_by_id(mid)
+        movie = movie_service.get_dy_id(mid)
         if not movie:
             return "такого фильма нет", 404
         return movie_schema.dump(movie), 200

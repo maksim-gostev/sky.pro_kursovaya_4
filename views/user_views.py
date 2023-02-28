@@ -7,7 +7,6 @@ from service.decorators import auth_required
 
 user_ns = Namespace('users')
 
-users_schema = UserSchema(many=True)
 user_schema = UserSchema()
 
 
